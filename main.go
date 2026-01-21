@@ -6,10 +6,11 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"log"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"os"
-	 
 	"strings"
 	"time"
 )
@@ -469,7 +470,7 @@ func testSQLInjection(config RequestConfig) []VulnerabilityResult {
 
 	for _, payload := range sqlInjectionPayloads {
 		result := testPayload(config, payload, "SQL Injection")
-		results = append(results, result)
+		results = append(results, result...)
 		time.Sleep(100 * time.Millisecond) // Rate limiting
 	}
 
@@ -481,7 +482,7 @@ func testXSS(config RequestConfig) []VulnerabilityResult {
 
 	for _, payload := range xssPayloads {
 		result := testPayload(config, payload, "XSS")
-		results = append(results, result)
+		results = append(results, result...)
 		time.Sleep(100 * time.Millisecond)
 	}
 
@@ -493,7 +494,7 @@ func testPathTraversal(config RequestConfig) []VulnerabilityResult {
 
 	for _, payload := range pathTraversalPayloads {
 		result := testPayload(config, payload, "Path Traversal")
-		results = append(results, result)
+		results = append(results, result...)
 		time.Sleep(100 * time.Millisecond)
 	}
 
@@ -505,7 +506,7 @@ func testCommandInjection(config RequestConfig) []VulnerabilityResult {
 
 	for _, payload := range commandInjectionPayloads {
 		result := testPayload(config, payload, "Command Injection")
-		results = append(results, result)
+		results = append(results, result...)
 		time.Sleep(100 * time.Millisecond)
 	}
 
@@ -560,99 +561,105 @@ func testHeaderInjection(config RequestConfig) []VulnerabilityResult {
 	return results
 }
 
-func testPayload(config RequestConfig, payload, testType string) VulnerabilityResult {
-	result := VulnerabilityResult{
-		TestName: testType,
-		Payload:  payload,
-		Severity: "Medium",
-	}
+func testPayload(config RequestConfig, payload, testType string) []VulnerabilityResult {
+	results := []VulnerabilityResult{}
 
-	// Inject payload in URL parameters
-	testURL := config.URL
-	if strings.Contains(testURL, "?") {
-		testURL += "&test=" + payload
-	} else {
-		testURL += "?test=" + payload
-	}
-
-	// Inject payload in body if POST/PUT
-	var body io.Reader
-	if config.Method == "POST" || config.Method == "PUT" {
-		testData := fmt.Sprintf(`{"test":"%s"}`, payload)
-		body = strings.NewReader(testData)
-	}
-
-	req, err := http.NewRequest(config.Method, testURL, body)
+	// Test URL parameters
+	parsedURL, err := url.Parse(config.URL)
 	if err != nil {
-		return result
+		log.Printf("Error parsing URL: %v", err)
+		return results
 	}
 
-	for key, val := range config.Headers {
-		req.Header.Set(key, val)
-	}
+	queryParams := parsedURL.Query()
+	for param := range queryParams {
+		originalValue := queryParams.Get(param)
+		queryParams.Set(param, payload)
+		parsedURL.RawQuery = queryParams.Encode()
+		testURL := parsedURL.String()
+		queryParams.Set(param, originalValue) // reset
 
-	client := &http.Client{Timeout: 5 * time.Second}
-	resp, err := client.Do(req)
-	if err != nil {
-		return result
-	}
-	defer resp.Body.Close()
-
-	respBody, _ := io.ReadAll(resp.Body)
-	result.StatusCode = resp.StatusCode
-
-	// Analyze response for vulnerabilities
-	bodyStr := string(respBody)
-	bodyLower := strings.ToLower(bodyStr)
-
-	switch testType {
-	case "SQL Injection":
-		// Check for SQL error messages
-		sqlErrors := []string{
-			"sql syntax", "mysql", "postgresql", "ora-", "sqlite",
-			"syntax error", "unclosed quotation", "quoted string",
-			"database error", "warning: mysql", "valid mysql result",
+		result := VulnerabilityResult{
+			TestName: testType,
+			Payload:  payload,
+			Severity: "Medium",
 		}
-		for _, errPattern := range sqlErrors {
-			if strings.Contains(bodyLower, errPattern) {
+
+		var body io.Reader
+		if config.Method == "POST" || config.Method == "PUT" {
+			testData := fmt.Sprintf(`{"%s":"%s"}`, param, payload)
+			body = strings.NewReader(testData)
+		}
+
+		req, err := http.NewRequest(config.Method, testURL, body)
+		if err != nil {
+			continue
+		}
+
+		for key, val := range config.Headers {
+			req.Header.Set(key, val)
+		}
+
+		client := &http.Client{Timeout: 5 * time.Second}
+		resp, err := client.Do(req)
+		if err != nil {
+			continue
+		}
+		defer resp.Body.Close()
+
+		respBody, _ := io.ReadAll(resp.Body)
+		result.StatusCode = resp.StatusCode
+
+		bodyStr := string(respBody)
+		bodyLower := strings.ToLower(bodyStr)
+
+		switch testType {
+		case "SQL Injection":
+			sqlErrors := []string{
+				"sql syntax", "mysql", "postgresql", "ora-", "sqlite",
+				"syntax error", "unclosed quotation", "quoted string",
+				"database error", "warning: mysql", "valid mysql result",
+			}
+			for _, errPattern := range sqlErrors {
+				if strings.Contains(bodyLower, errPattern) {
+					result.Vulnerable = true
+					result.Evidence = fmt.Sprintf("SQL error detected in param '%s': %s", param, errPattern)
+					result.Severity = "Critical"
+					break
+				}
+			}
+
+		case "XSS":
+			if strings.Contains(bodyStr, payload) {
 				result.Vulnerable = true
-				result.Evidence = fmt.Sprintf("SQL error detected: %s", errPattern)
+				result.Evidence = "Payload reflected in response without sanitization"
+				result.Severity = "High"
+			}
+
+		case "Path Traversal":
+			indicators := []string{"root:", "[boot loader]", "windows", "/etc/"}
+			for _, indicator := range indicators {
+				if strings.Contains(bodyLower, indicator) {
+					result.Vulnerable = true
+					result.Evidence = fmt.Sprintf("File content detected: %s", indicator)
+					result.Severity = "Critical"
+					break
+				}
+			}
+
+		case "Command Injection":
+			if len(bodyStr) > 1000 || strings.Contains(bodyStr, "uid=") ||
+				strings.Contains(bodyStr, "root") || strings.Contains(bodyLower, "volume") {
+				result.Vulnerable = true
+				result.Evidence = "Possible command execution detected"
 				result.Severity = "Critical"
-				break
 			}
 		}
 
-	case "XSS":
-		// Check if payload is reflected without encoding
-		if strings.Contains(bodyStr, payload) {
-			result.Vulnerable = true
-			result.Evidence = "Payload reflected in response without sanitization"
-			result.Severity = "High"
-		}
-
-	case "Path Traversal":
-		// Check for file content indicators
-		indicators := []string{"root:", "[boot loader]", "windows", "/etc/"}
-		for _, indicator := range indicators {
-			if strings.Contains(bodyLower, indicator) {
-				result.Vulnerable = true
-				result.Evidence = fmt.Sprintf("File content detected: %s", indicator)
-				result.Severity = "Critical"
-				break
-			}
-		}
-
-	case "Command Injection":
-		// Check for command output
-		if len(bodyStr) > 1000 || strings.Contains(bodyStr, "uid=") || 
-		   strings.Contains(bodyStr, "root") || strings.Contains(bodyLower, "volume") {
-			result.Vulnerable = true
-			result.Evidence = "Possible command execution detected"
-			result.Severity = "Critical"
-		}
+		results = append(results, result)
 	}
 
-	return result
+	return results
 }
 
 func testXXE(config RequestConfig) []VulnerabilityResult {
