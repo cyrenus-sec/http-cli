@@ -1,0 +1,17 @@
+{
+    "roles": [
+        {
+            "name": "admin",
+            "headers": {
+                "Authorization": "Bearer admin-token",
+                "X-Role": "admin"
+            }
+        },
+        {
+            "name": "guest",
+            "headers": {
+                "Authorization": "Bearer guest-token"
+            }
+        }
+    ]
+}
