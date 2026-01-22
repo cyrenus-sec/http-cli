@@ -1,0 +1,640 @@
+{
+  "target": "http://localhost:8000/?id=1",
+  "scan_time": "2026-01-22T15:37:34.44726763+02:00",
+  "total_tests": 88,
+  "vulnerabilities": [
+    {
+      "TestName": "SQL Injection",
+      "Payload": "' OR '1'='1",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "' OR '1'='1' --",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "' OR '1'='1' /*",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "admin' --",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "admin' #",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "admin'/*",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "' or 1=1--",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "' or 1=1#",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "' or 1=1/*",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "') or '1'='1--",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "') or ('1'='1--",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "1' UNION SELECT NULL--",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "1' UNION SELECT NULL,NULL--",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "' AND 1=0 UNION ALL SELECT 'admin', '81dc9bdb52d04dc20036dbd8313ed055'",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "1' AND '1'='1",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "SQL Injection",
+      "Payload": "1' AND '1'='2",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "SQL error detected in param 'id': sql syntax",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+          "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+        }
+      ]
+    },
+    {
+      "TestName": "XSS",
+      "Payload": "\"\u003e\u003cscript\u003ealert(String.fromCharCode(88,83,83))\u003c/script\u003e",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "Payload reflected in response without sanitization",
+      "Severity": "High",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.7 - Cross-site scripting (XSS)",
+          "description": "Vulnerability 'XSS' violates pci requirement: PCI DSS 6.5.7 - Cross-site scripting (XSS)"
+        }
+      ]
+    },
+    {
+      "TestName": "XSS",
+      "Payload": "\u003cscript\u003ealert(document.cookie)\u003c/script\u003e",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "Payload reflected in response without sanitization",
+      "Severity": "High",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.7 - Cross-site scripting (XSS)",
+          "description": "Vulnerability 'XSS' violates pci requirement: PCI DSS 6.5.7 - Cross-site scripting (XSS)"
+        }
+      ]
+    },
+    {
+      "TestName": "Path Traversal",
+      "Payload": "../../../etc/passwd",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "File content detected: /etc/",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.8 - Improper access control",
+          "description": "Vulnerability 'Path Traversal' violates pci requirement: PCI DSS 6.5.8 - Improper access control"
+        }
+      ]
+    },
+    {
+      "TestName": "Path Traversal",
+      "Payload": "..\\..\\..\\windows\\system32\\config\\sam",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "File content detected: windows",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.8 - Improper access control",
+          "description": "Vulnerability 'Path Traversal' violates pci requirement: PCI DSS 6.5.8 - Improper access control"
+        }
+      ]
+    },
+    {
+      "TestName": "Path Traversal",
+      "Payload": "....//....//....//etc/passwd",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "File content detected: /etc/",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.8 - Improper access control",
+          "description": "Vulnerability 'Path Traversal' violates pci requirement: PCI DSS 6.5.8 - Improper access control"
+        }
+      ]
+    },
+    {
+      "TestName": "Path Traversal",
+      "Payload": "..//..//..//etc//passwd",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "File content detected: /etc/",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.8 - Improper access control",
+          "description": "Vulnerability 'Path Traversal' violates pci requirement: PCI DSS 6.5.8 - Improper access control"
+        }
+      ]
+    },
+    {
+      "TestName": "Path Traversal",
+      "Payload": "....\\....\\....\\windows\\system32\\config\\sam",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "File content detected: windows",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.8 - Improper access control",
+          "description": "Vulnerability 'Path Traversal' violates pci requirement: PCI DSS 6.5.8 - Improper access control"
+        }
+      ]
+    },
+    {
+      "TestName": "Clickjacking",
+      "Payload": "N/A",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "Missing X-Frame-Options and CSP frame-ancestors headers",
+      "Severity": "Medium",
+      "compliance_tags": []
+    },
+    {
+      "TestName": "SSL/TLS Configuration",
+      "Payload": "N/A",
+      "Vulnerable": true,
+      "StatusCode": 0,
+      "Evidence": "Site not using HTTPS",
+      "Severity": "High",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 4.1 - Strong cryptography for sensitive data",
+          "description": "Vulnerability 'SSL/TLS Configuration' violates pci requirement: PCI DSS 4.1 - Strong cryptography for sensitive data"
+        }
+      ]
+    },
+    {
+      "TestName": "Information Disclosure",
+      "Payload": "Server",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "Server exposes Server: SimpleHTTP/0.6 Python/3.10.12",
+      "Severity": "Low",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 6.5.10 - Broken Authentication and Session Management (Indirectly related)",
+          "description": "Vulnerability 'Information Disclosure' violates pci requirement: PCI DSS 6.5.10 - Broken Authentication and Session Management (Indirectly related)"
+        }
+      ]
+    },
+    {
+      "TestName": "Authentication Weakness",
+      "Payload": "No credentials",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "Endpoint accessible without authentication",
+      "Severity": "High",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+          "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+        }
+      ]
+    },
+    {
+      "TestName": "Authentication Weakness",
+      "Payload": "admin:admin",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "Weak/default credentials accepted",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+          "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+        }
+      ]
+    },
+    {
+      "TestName": "Authentication Weakness",
+      "Payload": "admin:password",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "Weak/default credentials accepted",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+          "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+        }
+      ]
+    },
+    {
+      "TestName": "Authentication Weakness",
+      "Payload": "admin:123456",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "Weak/default credentials accepted",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+          "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+        }
+      ]
+    },
+    {
+      "TestName": "Authentication Weakness",
+      "Payload": "root:root",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "Weak/default credentials accepted",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+          "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+        }
+      ]
+    },
+    {
+      "TestName": "Authentication Weakness",
+      "Payload": "test:test",
+      "Vulnerable": true,
+      "StatusCode": 200,
+      "Evidence": "Weak/default credentials accepted",
+      "Severity": "Critical",
+      "compliance_tags": [
+        {
+          "standard": "pci",
+          "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+          "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+        }
+      ]
+    }
+  ],
+  "compliance_violations": {
+    "pci": [
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)",
+        "description": "Vulnerability 'SQL Injection' violates pci requirement: PCI DSS 6.5.1 - Injection flaws (SQL, OS Command, etc.)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.7 - Cross-site scripting (XSS)",
+        "description": "Vulnerability 'XSS' violates pci requirement: PCI DSS 6.5.7 - Cross-site scripting (XSS)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.7 - Cross-site scripting (XSS)",
+        "description": "Vulnerability 'XSS' violates pci requirement: PCI DSS 6.5.7 - Cross-site scripting (XSS)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.8 - Improper access control",
+        "description": "Vulnerability 'Path Traversal' violates pci requirement: PCI DSS 6.5.8 - Improper access control"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.8 - Improper access control",
+        "description": "Vulnerability 'Path Traversal' violates pci requirement: PCI DSS 6.5.8 - Improper access control"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.8 - Improper access control",
+        "description": "Vulnerability 'Path Traversal' violates pci requirement: PCI DSS 6.5.8 - Improper access control"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.8 - Improper access control",
+        "description": "Vulnerability 'Path Traversal' violates pci requirement: PCI DSS 6.5.8 - Improper access control"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.8 - Improper access control",
+        "description": "Vulnerability 'Path Traversal' violates pci requirement: PCI DSS 6.5.8 - Improper access control"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 4.1 - Strong cryptography for sensitive data",
+        "description": "Vulnerability 'SSL/TLS Configuration' violates pci requirement: PCI DSS 4.1 - Strong cryptography for sensitive data"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 6.5.10 - Broken Authentication and Session Management (Indirectly related)",
+        "description": "Vulnerability 'Information Disclosure' violates pci requirement: PCI DSS 6.5.10 - Broken Authentication and Session Management (Indirectly related)"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+        "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+        "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+        "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+        "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+        "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+      },
+      {
+        "standard": "pci",
+        "requirement": "PCI DSS 8.2.1 - Strong authentication methods",
+        "description": "Vulnerability 'Authentication Weakness' violates pci requirement: PCI DSS 8.2.1 - Strong authentication methods"
+      }
+    ]
+  }
+}

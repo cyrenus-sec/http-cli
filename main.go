@@ -66,8 +66,7 @@ func main() {
 	
 	// Parse compliance
 	if compliance != "" {
-		// Just splitting by comma for now, real parsing later
-		// cfg.Compliance = strings.Split(compliance, ",")
+		cfg.Compliance = strings.Split(compliance, ",")
 	}
 
 	// Run security scan if requested
@@ -79,18 +78,14 @@ func main() {
 		}
 		
         // Generate Compliance Report
-        if compliance != "" || cfg.ReportFormat != "text" {
-            standards := []string{}
-            if compliance != "" {
-                standards = strings.Split(compliance, ",")
-            }
+        if len(cfg.Compliance) > 0 || cfg.ReportFormat != "text" {
             formats := strings.Split(cfg.ReportFormat, ",")
             // Default to text if not configured
-            if cfg.ReportFormat == "text" && compliance != "" {
+            if cfg.ReportFormat == "text" && len(cfg.Compliance) > 0 {
                  formats = append(formats, "text")
             }
             
-            report.GenerateReport(cfg.URL, results, formats, standards)
+            report.GenerateReport(cfg.URL, results, formats, cfg.Compliance)
         }
         
         if cfg.AuditLog {

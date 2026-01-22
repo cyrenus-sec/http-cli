@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strings"
 	"time"
 
@@ -208,6 +209,11 @@ func RunSecurityScan(cfg config.RequestConfig) ([]VulnerabilityResult, error) {
 	if cfg.ScanType == "all" || cfg.ScanType == "auth" {
 		fmt.Println("→ Testing Authentication weaknesses...")
 		results = append(results, testAuthenticationWeakness(cfg)...)
+	}
+
+	if cfg.ScanType == "all" || cfg.ScanType == "info" {
+		fmt.Println("→ Testing Sensitive Data Exposure...")
+		results = append(results, testSensitiveData(cfg)...)
 	}
 
     // Enterprise Features
@@ -967,6 +973,62 @@ func testAuthenticationWeakness(cfg config.RequestConfig) []VulnerabilityResult 
 		}
 
 		time.Sleep(100 * time.Millisecond)
+	}
+
+	return results
+}
+
+func testSensitiveData(cfg config.RequestConfig) []VulnerabilityResult {
+	results := []VulnerabilityResult{}
+
+	req, err := http.NewRequest("GET", cfg.URL, nil)
+	if err != nil {
+		return results
+	}
+
+	for key, val := range cfg.Headers {
+		req.Header.Set(key, val)
+	}
+
+	client := &http.Client{Timeout: 5 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		return results
+	}
+	defer resp.Body.Close()
+
+	body, _ := io.ReadAll(resp.Body)
+	bodyStr := string(body)
+
+	// Regex patterns for sensitive data
+	patterns := map[string]string{
+		"Credit Card (Visa/Mastercard)": `\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})\b`,
+		"SSN (US)":                      `\b\d{3}-\d{2}-\d{4}\b`,
+		"Email Address":                 `[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}`,
+		"IBAN":                          `\b[A-Z]{2}\d{2}[A-Z0-9]{4}\d{7}([A-Z0-9]?){0,16}\b`,
+        "Medical Record (Generic)":      `\bMRN-\d+\b`,
+        "germanID":                      `\bDE\d{9}\b`,
+	}
+
+	for name, pattern := range patterns {
+		re := regexp.MustCompile(pattern)
+		if re.MatchString(bodyStr) {
+			match := re.FindString(bodyStr)
+            // Mask the match for safe logging if needed, but here we show it as evidence
+            if len(match) > 10 {
+                match = match[:4] + "***" + match[len(match)-4:]
+            }
+            
+			result := VulnerabilityResult{
+				TestName:   "Sensitive Data Exposure",
+				Payload:    "N/A",
+				Vulnerable: true,
+				StatusCode: resp.StatusCode,
+				Evidence:   fmt.Sprintf("%s suspected: %s", name, match),
+				Severity:   "Critical",
+			}
+			results = append(results, result)
+		}
 	}
 
 	return results
