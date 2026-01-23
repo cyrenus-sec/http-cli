@@ -113,7 +113,7 @@ jobs:
             echo "Release ${VERSION}" > release_notes.md
             echo "" >> release_notes.md
             echo "### Changes" >> release_notes.md
-            git log --oneline $(git describe --tags --abbrev=0 HEAD^)..HEAD >> release_notes.md
+            git log --oneline $(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")..HEAD >> release_notes.md || echo "Initial release" >> release_notes.md
           fi
 
       - name: Create Release
@@ -134,6 +134,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: read
+      packages: write
     
     steps:
       - name: Checkout code
