@@ -22,7 +22,35 @@
 
 ---
 
+
 ## Installation
+
+### Option 1: Download Pre-built Binaries (Recommended)
+
+1. **Download the latest release** for your platform from [GitHub Releases](https://github.com/cyrenus-sec/http-cli/releases)
+
+2. **Extract the archive:**
+   ```bash
+   # For Linux/macOS
+   tar -xzf httpcli-linux-amd64.tar.gz
+   
+   # For Windows (PowerShell)
+   Expand-Archive httpcli-windows-amd64.zip
+   ```
+
+3. **Move to system PATH** (optional, for global access):
+   ```bash
+   # Linux/macOS
+   sudo mv httpcli /usr/local/bin/
+   
+   # Or add to your user bin directory
+   mv httpcli ~/.local/bin/
+   ```
+
+### Option 2: Build from Source
+
+
+## From Source 
 
 ### Prerequisites
 - Go 1.18 or higher
