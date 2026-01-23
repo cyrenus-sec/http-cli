@@ -181,6 +181,7 @@ The tool includes 15+ built-in vulnerability scanners:
 - Command Injection (`cmd`)
 - IDOR (`idor`)
 - **OWASP API8:2023 Security Misconfiguration** (`misconfig`)
+- **HTTP Request Smuggling (Desync)** (`desync`)
 - And more...
 
 **Run a full scan:**
@@ -192,6 +193,20 @@ The tool includes 15+ built-in vulnerability scanners:
 ```bash
 ./httpcli -url "https://target.com" -scan -scan-type misconfig
 ```
+
+**Run HTTP desync/smuggling scan:**
+```bash
+./httpcli -url "https://target.com" -scan -scan-type desync
+```
+
+Important Limitations:
+
+Go's HTTP client automatically normalizes headers, limiting raw socket manipulation
+Detection is conservative and flags potential issues for manual verification
+Results marked as "Medium" severity require further testing with specialized tools (like Burp Suite's HTTP Request Smuggler)
+
+Note: This is a detection tool, not a full exploitation framework. Positive results should be verified with dedicated desync testing tools.
+
 
 ---
 

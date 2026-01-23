@@ -221,6 +221,11 @@ func RunSecurityScan(cfg config.RequestConfig) ([]VulnerabilityResult, error) {
 		results = append(results, RunSecurityMisconfigScan(cfg)...)
 	}
 
+	// HTTP Request Smuggling (Desync) Detection
+	if cfg.ScanType == "all" || cfg.ScanType == "desync" {
+		results = append(results, RunDesyncScan(cfg)...)
+	}
+
     // Enterprise Features
     results = append(results, RunRBACScan(cfg)...)
     results = append(results, RunZeroTrustScan(cfg)...)
