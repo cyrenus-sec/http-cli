@@ -216,6 +216,11 @@ func RunSecurityScan(cfg config.RequestConfig) ([]VulnerabilityResult, error) {
 		results = append(results, testSensitiveData(cfg)...)
 	}
 
+	// OWASP API8:2023 - Security Misconfiguration
+	if cfg.ScanType == "all" || cfg.ScanType == "misconfig" {
+		results = append(results, RunSecurityMisconfigScan(cfg)...)
+	}
+
     // Enterprise Features
     results = append(results, RunRBACScan(cfg)...)
     results = append(results, RunZeroTrustScan(cfg)...)

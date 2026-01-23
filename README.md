@@ -180,11 +180,17 @@ The tool includes 15+ built-in vulnerability scanners:
 - XML External Entity (`xxe`)
 - Command Injection (`cmd`)
 - IDOR (`idor`)
+- **OWASP API8:2023 Security Misconfiguration** (`misconfig`)
 - And more...
 
 **Run a full scan:**
 ```bash
 ./httpcli -url "https://target.com" -scan
+```
+
+**Run security misconfiguration scan:**
+```bash
+./httpcli -url "https://target.com" -scan -scan-type misconfig
 ```
 
 ---

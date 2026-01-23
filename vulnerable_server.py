@@ -17,6 +17,38 @@ class VulnerableHandler(http.server.SimpleHTTPRequestHandler):
         """Suppress default logging"""
         pass
     
+    def do_TRACE(self):
+        """Handle TRACE requests (dangerous method)"""
+        self.send_json_response({"error": "TRACE method should be disabled"}, 200)
+    
+    def do_TRACK(self):
+        """Handle TRACK requests (dangerous method)"""
+        self.send_json_response({"error": "TRACK method should be disabled"}, 200)
+    
+    def do_PUT(self):
+        """Handle PUT requests"""
+        parsed = urllib.parse.urlparse(self.path)
+        if parsed.path == "/api/misconfig/verbs":
+            self.send_json_response({"method": "PUT", "allowed": True}, 200)
+        else:
+            self.send_json_response({"error": "Method not allowed"}, 405)
+    
+    def do_DELETE(self):
+        """Handle DELETE requests"""
+        parsed = urllib.parse.urlparse(self.path)
+        if parsed.path == "/api/misconfig/verbs":
+            self.send_json_response({"method": "DELETE", "allowed": True}, 200)
+        else:
+            self.send_json_response({"error": "Method not allowed"}, 405)
+    
+    def do_OPTIONS(self):
+        """Handle OPTIONS requests"""
+        self.send_response(200)
+        self.send_header("Allow", "GET, POST, PUT, DELETE, OPTIONS, TRACE, TRACK")
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+        self.wfile.write(json.dumps({"methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS", "TRACE", "TRACK"]}).encode())
+    
     def do_POST(self):
         """Handle POST requests"""
         content_length = int(self.headers.get('Content-Length', 0))
@@ -338,6 +370,50 @@ class VulnerableHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json_response(response, 200)
             return
 
+        # ============ OWASP API8:2023 - SECURITY MISCONFIGURATION ============
+        if path == "/api/misconfig/headers":
+            # Intentionally missing all security headers
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            # NO security headers at all
+            self.end_headers()
+            response = {
+                "message": "This endpoint demonstrates missing security headers",
+                "missing": [
+                    "X-Content-Type-Options",
+                    "Content-Security-Policy",
+                    "X-Frame-Options",
+                    "Referrer-Policy",
+                    "Permissions-Policy"
+                ]
+            }
+            self.wfile.write(json.dumps(response).encode())
+            return
+
+        if path == "/api/misconfig/cache":
+            # Sensitive endpoint without Cache-Control
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            # NO Cache-Control header
+            self.end_headers()
+            response = {
+                "user_id": "12345",
+                "email": "user@example.com",
+                "session_token": "abc123xyz789",
+                "private_message": "This should not be cached"
+            }
+            self.wfile.write(json.dumps(response).encode())
+            return
+
+        if path == "/api/misconfig/verbs":
+            # Endpoint that accepts all HTTP verbs (misconfiguration)
+            response = {
+                "method": self.command,
+                "message": f"This endpoint accepts {self.command} (should restrict verbs)"
+            }
+            self.send_json_response(response, 200)
+            return
+
         # ============ DEFAULT / API INFO ============
         if path == "/" or path == "/api":
             response = {
@@ -382,7 +458,7 @@ class VulnerableHandler(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(json.dumps(data, indent=2).encode())
 
 
-PORT = 8000
+PORT = 8001
 
 if __name__ == "__main__":
     with socketserver.TCPServer(("", PORT), VulnerableHandler) as httpd:
