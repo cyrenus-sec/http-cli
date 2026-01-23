@@ -62,7 +62,11 @@
    go mod tidy
    go build -o httpcli main.go
    ```
+   now move it to user bin or use it from currunt dir
+    ```bash
 
+    sudo mv httpcli /usr/local/bin/
+    ```
 2. **Run:**
    ```bash
    ./httpcli -url "https://api.example.com"
