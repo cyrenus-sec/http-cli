@@ -85,7 +85,7 @@ func main() {
                  formats = append(formats, "text")
             }
             
-            report.GenerateReport(cfg.URL, results, formats, cfg.Compliance)
+          _ =   report.GenerateReport(cfg.URL, results, formats, cfg.Compliance)
         }
         
         if cfg.AuditLog {
