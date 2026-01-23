@@ -36,6 +36,12 @@ func checkStrictTransport(cfg config.RequestConfig) []VulnerabilityResult {
     // Zero Trust requires HSTS with long duration and includeSubDomains
     
     req, _ := http.NewRequest("GET", cfg.URL, nil)
+    
+    // Apply user-provided headers
+    for key, val := range cfg.Headers {
+        req.Header.Set(key, val)
+    }
+    
 	client := &http.Client{Timeout: 5 * time.Second}
 	resp, err := client.Do(req)
 	
@@ -102,8 +108,17 @@ func checkStrongCrypto(cfg config.RequestConfig) []VulnerabilityResult {
 }
 
 func checkUbiquitousAuth(cfg config.RequestConfig) []VulnerabilityResult {
-     // Try to access without ANY headers (except host)
+     // Try to access without user auth headers, but include other headers like Content-Type
      req, _ := http.NewRequest(cfg.Method, cfg.URL, nil)
+     
+     // Add non-auth headers only (skip Authorization, Cookie, etc.)
+     for key, val := range cfg.Headers {
+         lowerKey := strings.ToLower(key)
+         if lowerKey != "authorization" && lowerKey != "cookie" {
+             req.Header.Set(key, val)
+         }
+     }
+     
      client := &http.Client{Timeout: 5 * time.Second}
      resp, err := client.Do(req)
      

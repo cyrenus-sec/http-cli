@@ -3,8 +3,10 @@ package scanner
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/cyrenus-sec/http-cli/pkg/config"
@@ -44,12 +46,23 @@ func RunRBACScan(cfg config.RequestConfig) []VulnerabilityResult {
 	client := &http.Client{Timeout: 5 * time.Second}
 
 	for _, role := range rbacConfig.Roles {
-		req, err := http.NewRequest(cfg.Method, cfg.URL, nil)
+		// Prepare body if user provided one
+		var body io.Reader
+		if cfg.Body != "" {
+			body = strings.NewReader(cfg.Body)
+		}
+
+		req, err := http.NewRequest(cfg.Method, cfg.URL, body)
 		if err != nil {
 			continue
 		}
 
-		// Set role headers
+		// First, set user-provided headers from config
+		for key, val := range cfg.Headers {
+			req.Header.Set(key, val)
+		}
+
+		// Then, override with role-specific headers (auth, etc.)
 		for key, val := range role.Headers {
 			req.Header.Set(key, val)
 		}
