@@ -25,7 +25,7 @@ Please do not open public GitHub issues for security vulnerabilities, as this co
 - Provide detailed information about the vulnerability
 
 **Alternative Method:** Email us directly at:
-- **Email:** security@cyrenus.com *(or your designated security contact)*
+- **Email:** sadeem@sadeem.uk  *
 - **Subject:** `[SECURITY] http-cli vulnerability report`
 
 ### 3. Include the Following Information
